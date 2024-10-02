@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot-app
+  template:
+    metadata:
+      labels:
+        app: springboot-app
+    spec:
+      containers:
+      - name: springboot-app
+        image: sekaraj/springboot_app
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: app-config
+        env:
+        - name: SPRING_APPLICATION_JSON
+          value: |
+            {
+              "spring.data.mongodb.uri" : "mongodb://$(MONGODB_USER):$(MONGODB_PASSWORD)@mongodb:$(MONGODB_DOCKER_PORT)/$(MONGODB_DATABASE)?authSource=admin"
+            }
+

@@ -16,7 +16,7 @@ public class DemoApplication {
     class HelloController {
         @GetMapping("/")
         public String home() {
-            return "Hi All! Natwest future devops enginere! Keep it going";
+            return "Hi All!";
         }
     }
 }
